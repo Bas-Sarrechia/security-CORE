@@ -1,0 +1,139 @@
+﻿@using Security.Domain
+@model IndexModel
+
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title> Cryptography creating a user</title>
+</head>
+<body style="margin: 30px">
+
+
+<div id="accordion" class="">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne">
+                    Show DB content ▽
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseOne" class="table-responsive collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <table class="table table-hover my-5 table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Salt</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @for (int i = 0; i < Model.Users.Count(); i++)
+                {
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>@Model.Users.ToList()[i].Username</td>
+                        <td>@Model.Users.ToList()[i].Password</td>
+                        <td>@Model.Users.ToList()[i].Salt</td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo">
+                    Leave a message for ▽
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionTwo">
+            <div class="card-body">
+                <div class="w-50">
+                    <div class="form-group">
+                        From user:
+                        <select id="from-user" class="form-control">
+                            @foreach (User user in Model.Users)
+                            {
+                                <option data-id="@user.Id">@user.Username</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        To user:
+                        <select id="to-user" class="form-control">
+                            @foreach (User user in Model.Users)
+                            {
+                                <option data-id="@user.Id">@user.Username</option>
+                            }
+                            
+                        </select>
+                    </div>
+                    <br/>
+                    <div class="custom-file">
+                        <input name="file" type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <br/>
+                    <br/>
+                    <button id="uploadbutton" onclick="UploadFile()" type="submit" value="upload!" class="btn-primary btn">upload!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-controls="collapseThree">
+                    Retrieve ▽
+                </button>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionThree">
+            <div class="card-body">
+                <div class="w-50">
+                    I am:
+                    <select id="iam-user" class="form-control">
+                        @foreach (User user in Model.Users)
+                        {
+                            <option data-id="@user.Id">@user.Username</option>
+                        }
+                    </select>
+                    
+                    I want to retrieve
+                    <select id="retrieve" class="form-control">
+                        @foreach (FilePackage file in Model.Files)
+                        {
+                            <option data-id="@file.Id">@file.FileName</option>
+                        }
+                    </select>
+                    <button onclick="Download()" class="btn btn-primary mt-4">Download !</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="~/js/site.js"></script>
+
+
+
+</body>
+</html>
